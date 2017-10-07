@@ -10,6 +10,41 @@ namespace scripts
     {
         static void Main(string[] args)
         {
+            var warnings = File.ReadAllLines("./warnings.txt");
+            var regex = new Regex("BINDINGSGENERATOR : warning BG8401: Skipping ([^,]+),.+");
+
+            var metadata = new List<string>();
+
+            for (int i = 0; i < warnings.Length; i++)
+            {
+                var match = regex.Match(warnings[i]);
+                var items = match.Groups.Skip(1).Select(x => x.Value).ToList();
+
+                if (items.Count < 1) continue;
+
+                var lastDotIndex = items[0].LastIndexOf('.');
+                var lastSecondDotIndex = items[0].Substring(0, lastDotIndex).LastIndexOf('.');
+                var fieldName = items[0].Substring(lastDotIndex + 1);
+                var clsName = items[0].Substring(lastSecondDotIndex + 1, lastDotIndex - lastSecondDotIndex - 1);
+                var ns = items[0].Substring(0, lastSecondDotIndex);
+
+                fieldName = fieldName[0].ToString().ToLower() + fieldName.Substring(1);
+
+                metadata.Add($@"
+<attr
+    path=""/api/package[@name='{ns.ToLower()}']/class[@name='{clsName}']/field[@name='{fieldName}']""
+    name=""managedName"">_{fieldName}</attr>                
+");
+            }
+
+            File.WriteAllText("./metadata.xml", string.Join("\n", metadata));
+            Console.WriteLine("DONE");
+            Console.ReadLine();
+        }
+
+        void ParseError()
+        {
+
             var errors = File.ReadAllLines("./errors");
             var regex = new Regex("/([^\\(/]+)\\(\\d+,\\d+\\): error ([^:]+): '([^']+)' .+ '(\\w+\\.\\w+).+");
             var classes = new Dictionary<string, List<string>>();
@@ -29,10 +64,13 @@ namespace scripts
                 var baseCls = items[3];
 
                 List<string> cls;
-                if (!classes.ContainsKey(ns)) {
+                if (!classes.ContainsKey(ns))
+                {
                     cls = new List<string>();
                     classes[ns] = cls;
-                } else {
+                }
+                else
+                {
                     cls = classes[ns];
                 }
 
