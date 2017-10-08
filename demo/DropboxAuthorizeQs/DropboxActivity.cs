@@ -100,7 +100,7 @@ namespace DropboxAuthorizeQs
         }
 
 
-        public static Picasso getPicasso()
+        public static Picasso GetPicasso()
         {
             return sPicasso;
         }
@@ -118,7 +118,7 @@ namespace DropboxAuthorizeQs
         }
 
 
-        public static Uri buildPicassoUri(FileMetadata file)
+        public static Android.Net.Uri BuildPicassoUri(FileMetadata file)
         {
             var nativeUri = new Android.Net.Uri
                     .Builder()
@@ -126,7 +126,7 @@ namespace DropboxAuthorizeQs
                     .Authority(HOST)
                     .Path(file.PathLower)
                     .Build();
-            return new Uri(nativeUri.ToString());
+            return nativeUri;
         }
 
         public override bool CanHandleRequest(Request data)
