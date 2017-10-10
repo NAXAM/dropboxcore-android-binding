@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <!-- Required elements-->
+        <id>Naxam.DropboxCoreApi.Droid</id>
+        <version>3.0.4</version>
+        <description>Xamarin Binding Library - Dropbox Core</description>
+        <authors>NAXAM CO.,LTD</authors>
+        <owners>NAXAM CO.,LTD</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <title>Naxam - Dropbox Core for Android</title>
+        <releaseNotes>Dropbox Core v3.0.4</releaseNotes>
+        <summary>Xamarin.Android Binding Library - Dropbox Core</summary>
+        <iconUrl>https://avatars2.githubusercontent.com/u/559357</iconUrl>
+        <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+        <projectUrl>https://github.com/NAXAM/dropboxcore-android-binding</projectUrl>
+        <copyright>Copyright (c) 2017 NAXAM</copyright>
+        <tags>xamarin, Xamarin.Android, dropbox, dropbox-core, dropbox-core-sdk</tags>
+        <dependencies>
+            <dependency id="Jackson.Core" version="2.7.4.1" />
+            <dependency id="Square.OkHttp3" version="3.8.1" />
+        </dependencies>
+    </metadata>
+    <!-- Optional 'files' node -->
+    <files>
+        <file src="Naxam.DropboxCoreApi.Droid/bin/Release/Naxam.DropboxCoreApi.Droid.dll" target="lib/MonoAndroid10/Naxam.DropboxCoreApi.Droid.dll" />
+    </files>
+</package>
